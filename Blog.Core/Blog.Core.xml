@@ -1,0 +1,158 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Blog.Core</name>
+    </assembly>
+    <members>
+        <member name="M:Blog.Core.Controllers.AccountController.GetJwt(System.Int32,System.String)">
+            <summary>
+            获取令牌
+            </summary>
+            <param name="ID">ID</param>
+            <param name="name">账号</param>
+            <returns></returns>
+        </member>
+        <member name="M:Blog.Core.Controllers.v1.BlogController.Get(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Blog.Core.Controllers.DefaultController">
+            <summary>
+            默认接口
+            </summary>
+        </member>
+        <member name="P:Blog.Core.Models.ApiReturnCode.token">
+            <summary>
+            token令牌
+            </summary>
+        </member>
+        <member name="P:Blog.Core.Models.ApiReturnCode.refreshToken">
+            <summary>
+            刷新Token
+            </summary>
+        </member>
+        <member name="P:Blog.Core.Models.TokenModel.ID">
+            <summary>
+            ID
+            </summary>
+        </member>
+        <member name="P:Blog.Core.Models.TokenModel.Name">
+            <summary>
+            名称
+            </summary>
+        </member>
+        <member name="P:Blog.Core.Models.TokenModel.Phone">
+            <summary>
+            手机
+            </summary>
+        </member>
+        <member name="P:Blog.Core.Models.TokenModel.Email">
+            <summary>
+            邮箱
+            </summary>
+        </member>
+        <member name="P:Blog.Core.Models.TokenModel.Sub">
+            <summary>
+            身份
+            </summary>
+        </member>
+        <member name="M:Blog.Core.ServiceImpl.RedisCacheService.Get(System.String)">
+            <summary>
+            获取缓存
+            </summary>
+            <param name="key">缓存key</param>
+            <returns></returns>
+        </member>
+        <member name="M:Blog.Core.ServiceImpl.RedisCacheService.Add(System.String,System.String,System.Int32)">
+            <summary>
+            添加缓存
+            </summary>
+            <param name="key">缓存key</param>
+            <param name="value">缓存值</param>
+            <param name="ExpirationTime">绝对过期时间(分钟)</param>
+        </member>
+        <member name="M:Blog.Core.ServiceImpl.RedisCacheService.Remove(System.String)">
+            <summary>
+            移除缓存
+            </summary>
+            <param name="key">缓存key</param>
+        </member>
+        <member name="M:Blog.Core.ServiceImpl.RedisCacheService.Replace(System.String,System.String,System.Int32)">
+            <summary>
+            更新缓存
+            </summary>
+            <param name="key">缓存key</param>
+            <param name="value">缓存值</param>
+            <param name="ExpirationTime"></param>
+        </member>
+        <member name="M:Blog.Core.Services.ICacheService.Get(System.String)">
+            <summary>
+            获取缓存
+            </summary>
+            <param name="key">缓存key</param>
+            <returns></returns>
+        </member>
+        <member name="M:Blog.Core.Services.ICacheService.GetString(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Blog.Core.Services.ICacheService.AddString(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Blog.Core.Services.ICacheService.Add(System.String,System.String,System.Int32)">
+            <summary>
+            添加缓存
+            </summary>
+            <param name="key">缓存key</param>
+            <param name="value">缓存值</param>
+            <param name="ExpirationTime">绝对过期时间(分钟)</param>
+        </member>
+        <member name="M:Blog.Core.Services.ICacheService.Remove(System.String)">
+            <summary>
+            移除缓存
+            </summary>
+            <param name="key"></param>
+        </member>
+        <member name="M:Blog.Core.Services.ICacheService.Replace(System.String,System.String,System.Int32)">
+            <summary>
+            更新缓存
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <param name="ExpirationTime"></param>
+        </member>
+        <member name="F:Blog.Core.Startup.provider">
+            <summary>
+            Api版本信息
+            </summary>
+        </member>
+        <member name="T:Blog.Core.DatetimeJsonConverter">
+            <summary>
+            格式化时间
+            </summary>
+        </member>
+        <member name="T:Blog.Core.Tools.TokenHelper">
+            <summary>
+            Token相关信息
+            </summary>
+        </member>
+        <member name="F:Blog.Core.Tools.TokenHelper.secretKey">
+            <summary>
+            生成JWT字符串
+            </summary>
+            <param name="tokenModel"></param>
+            <returns></returns>
+            
+        </member>
+    </members>
+</doc>

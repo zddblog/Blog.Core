@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\Users\huawei\source\repos\Blog.Core\Blog.Core.Model\Blog.Core.Model.xml</DocumentationFile>
+  </PropertyGroup>
+
+</Project>
