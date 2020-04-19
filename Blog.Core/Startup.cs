@@ -1,3 +1,9 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using Autofac.Extras.DynamicProxy;
+using Blog.Core.IRepository.Base;
+using Blog.Core.IServices;
+using Blog.Core.Repository.Base;
 using Blog.Core.ServiceImpl;
 using Blog.Core.Services;
 using Blog.Core.Tools;
@@ -13,7 +19,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -183,10 +191,34 @@ namespace Blog.Core
             services.AddSingleton(typeof(ICacheService), new RedisCacheService(new RedisCacheOptions()
             {
                 Configuration = Configuration.GetSection("Cache:ConnectionString").Value,
-                InstanceName= Configuration.GetSection("Cache:InstanName").Value
+                InstanceName = Configuration.GetSection("Cache:InstanName").Value
             }));
 
             #endregion
+
+        }
+
+
+
+
+        // 注意在CreateDefaultBuilder中，添加Autofac服务工厂
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            //builder.RegisterType<AdvertisementServices>().As<IAdvertisementServices>()
+            var cacheType = new List<Type>();
+            //业务逻辑层所在程序集命名空间
+            Assembly service = Assembly.Load("Blog.Core.Services");
+            builder.RegisterAssemblyTypes(service)
+                     .AsImplementedInterfaces()
+                     .InstancePerDependency()
+                     .EnableInterfaceInterceptors()//引用Autofac.Extras.DynamicProxy;
+                     .InterceptedBy(cacheType.ToArray());//允许将拦截器服务的列表分配给注册。
+
+            //接口层所在程序集命名空间
+            Assembly repository = Assembly.Load("Blog.Core.Repository");
+            builder.RegisterAssemblyTypes(repository)
+                     .AsImplementedInterfaces()
+                     .InstancePerDependency();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -202,13 +234,13 @@ namespace Blog.Core
             {
                 foreach (var item in provider.ApiVersionDescriptions)
                 {
-                //c.SwaggerEndpoint("/swagger/v1/swagger.json", "CoreAPI"); 单版本
-                c.SwaggerEndpoint($"/swagger/{item.GroupName}/swagger.json", "CoreAPI" + item.ApiVersion);
+                    //c.SwaggerEndpoint("/swagger/v1/swagger.json", "CoreAPI"); 单版本
+                    c.SwaggerEndpoint($"/swagger/{item.GroupName}/swagger.json", "CoreAPI" + item.ApiVersion);
                 }
-            // c.SwaggerEndpoint($"/swagger/v1/swagger.json", $"{ApiName} v1");
+                // c.SwaggerEndpoint($"/swagger/v1/swagger.json", $"{ApiName} v1");
 
-            //路径配置，设置为空，表示直接在根域名（localhost:8001）访问该文件,注意localhost:8001/swagger是访问不到的，去launchSettings.json把launchUrl去掉，如果你想换一个路径，直接写名字即可，比如直接写c.RoutePrefix = "doc";
-            c.RoutePrefix = "";
+                //路径配置，设置为空，表示直接在根域名（localhost:8001）访问该文件,注意localhost:8001/swagger是访问不到的，去launchSettings.json把launchUrl去掉，如果你想换一个路径，直接写名字即可，比如直接写c.RoutePrefix = "doc";
+                c.RoutePrefix = "";
             });
 
             app.UseRouting();

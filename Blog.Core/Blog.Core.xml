@@ -12,6 +12,12 @@
             <param name="name">账号</param>
             <returns></returns>
         </member>
+        <member name="M:Blog.Core.Controllers.v1.BlogController.#ctor(Blog.Core.IServices.IAdvertisementServices)">
+            <summary>
+            构造函数
+            </summary>
+            <param name="advertisementServices"></param>
+        </member>
         <member name="M:Blog.Core.Controllers.v1.BlogController.Get(System.Int32)">
             <summary>
             

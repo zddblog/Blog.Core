@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -17,10 +18,21 @@ namespace Blog.Core
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
+          Host.CreateDefaultBuilder(args)
+         .UseServiceProviderFactory(new AutofacServiceProviderFactory()) //<--NOTE THIS
+         .ConfigureWebHostDefaults(webBuilder =>
+          {
+              webBuilder
+                .UseStartup<Startup>()
+                .UseUrls("http://localhost:8081")
+                .ConfigureLogging((hostingContext, builder) =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    builder.ClearProviders();
+                    builder.SetMinimumLevel(LogLevel.Trace);
+                    builder.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
+                    builder.AddConsole();
+                    builder.AddDebug();
                 });
+          });
     }
 }

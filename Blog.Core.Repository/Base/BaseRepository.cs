@@ -101,6 +101,7 @@ namespace Blog.Core.Repository.Base
             return await Task.Run(() => db.Ado.ExecuteCommand(strSql, parameters) > 0);
         }
 
+        [Obsolete]
         public async Task<bool> Update(
           TEntity entity,
           List<string> lstColumns = null,

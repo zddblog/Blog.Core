@@ -1,20 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Blog.Core.IServices;
+﻿using Blog.Core.IServices;
 using Blog.Core.Model;
-using Blog.Core.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Blog.Core.Controllers.v1
 {
     [Route("api/[controller]")]
     [ApiController]
     [ApiVersion("1.0")]
+   // [Authorize]
     public class BlogController : ControllerBase
     {
+        readonly IAdvertisementServices _advertisementServices;
+
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="advertisementServices"></param>
+        public BlogController(IAdvertisementServices advertisementServices)
+        { 
+            _advertisementServices = advertisementServices;
+        }
         // GET: api/Blog/5
         /// <summary>
         /// 
@@ -24,9 +31,7 @@ namespace Blog.Core.Controllers.v1
         [HttpGet]
         public async Task<List<Advertisement>> Get(int id)
         {
-            IAdvertisementServices advertisementServices = new AdvertisementServices();
-
-            return await advertisementServices.Query(d => d.Id == id);
+            return await _advertisementServices.Query(d => d.Id == id);
         }
     }
 }
