@@ -2,6 +2,8 @@
 {
     public class BaseDBConfig
     {
-        public static string ConnectionString = "server=.;uid=sa;pwd=123456;database=DbApi";
+        public static string ConnectionString = "server=.;pwd=123456;uid=sa;database=DbApi";
+
+        //这个Appsettings是一个封装的操作类，用来获取配置文件的数据
     }
 }
